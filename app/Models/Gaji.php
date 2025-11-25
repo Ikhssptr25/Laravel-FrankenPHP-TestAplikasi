@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Karyawan;
+use App\Models\karyawan;
 
 class Gaji extends Model
 {

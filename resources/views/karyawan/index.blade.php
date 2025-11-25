@@ -15,16 +15,16 @@
   <div class="flex items-center gap-4 mr-2">
     <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-110 h-14 px-10 mr-0">
     <form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button type="submit"
-            class="flex items-center gap-2 text-black px-4 py-2 mt-5 rounded-lg text-sm font-semibold">
+      @csrf
+      <button type="submit"
+              class="flex items-center gap-2 text-black px-4 py-2 mt-5 rounded-lg text-sm font-semibold">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
         </svg>
         Keluar
-    </button>
-</form>
+      </button>
+    </form>
   </div>
 </header>
 
@@ -38,7 +38,7 @@
       </div>
     @endif
 
-    {{-- error form --}}
+    {{-- error form (kalau error dari submit non-AJAX) --}}
     @if($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 text-red-800 px-4 py-2 text-sm">
         <ul class="list-disc pl-5">
@@ -180,7 +180,7 @@
     <form id="formEdit" class="p-6 space-y-4 flex flex-col" method="POST">
       @csrf
       @method('PUT')
-      <input type="hidden" name="karyawan_id" id="edit_id">
+      <input type="hidden" id="edit_id">
 
       <div>
         <label class="block font-semibold mb-1 text-black">Nama
@@ -225,7 +225,7 @@
   </div>
 </div>
 
-{{-- Form delete tersembunyi --}}
+{{-- Form delete tersembunyi (kalau mau pakai submit biasa) --}}
 <form id="formDelete" method="POST" class="hidden">
   @csrf
   @method('DELETE')
@@ -239,7 +239,7 @@
     document.getElementById('modalTambah').classList.add('hidden');
   }
 
-  function openModalEdit() {
+  function openModalEditModal() {
     document.getElementById('modalEdit').classList.remove('hidden');
   }
   function closeModalEdit() {
@@ -263,18 +263,21 @@
       const res = await fetch("{{ route('karyawan.store') }}", {
         method: 'POST',
         headers: {
-          'X-Requested-With': 'XMLHttpRequest', // biar $request->ajax() = true
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
         },
         body: formData
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
-      if (data.status === 'success') {
+      if (res.ok && data.status === 'success') {
         alert(data.message || 'Data berhasil ditambahkan!');
         closeModalTambah();
-        // cara simpel: reload halaman
         location.reload();
+      } else if (data.errors) {
+        const firstKey = Object.keys(data.errors)[0];
+        alert(data.errors[firstKey][0]);
       } else {
         alert('Gagal menambah data.');
       }
@@ -284,21 +287,22 @@
     }
   });
 
-  // ===== Edit Data (AJAX) =====
+  // ===== Isi Modal Edit & simpan URL update =====
   function editData(id, nama, jabatan, alamat, no_telp) {
     const form = document.getElementById('formEdit');
+
     document.getElementById('edit_id').value = id;
     document.getElementById('edit_nama').value = nama;
     document.getElementById('edit_jabatan').value = jabatan;
     document.getElementById('edit_alamat').value = alamat;
     document.getElementById('edit_no_telp').value = no_telp;
 
-    // simpan URL update di data attribute
     form.dataset.updateUrl = "{{ url('/karyawan') }}/" + id;
 
-    openModalEdit();
+    openModalEditModal();
   }
 
+  // ===== Edit Data (AJAX) =====
   document.getElementById('formEdit').addEventListener('submit', async function (e) {
     e.preventDefault();
 
@@ -311,23 +315,27 @@
 
     const url = form.dataset.updateUrl;
     const formData = new FormData(form);
-    formData.append('_method', 'PUT'); // spoof method PUT untuk Laravel
+    formData.append('_method', 'PUT'); // spoof method PUT
 
     try {
       const res = await fetch(url, {
-        method: 'POST', // tetap POST, Laravel baca _method = PUT
+        method: 'POST',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
         },
         body: formData
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
-      if (data.status === 'success') {
+      if (res.ok && data.status === 'success') {
         alert(data.message || 'Data berhasil diperbarui!');
         closeModalEdit();
         location.reload();
+      } else if (data.errors) {
+        const firstKey = Object.keys(data.errors)[0];
+        alert(data.errors[firstKey][0]);
       } else {
         alert('Gagal memperbarui data.');
       }
@@ -350,13 +358,14 @@
         method: 'POST',
         headers: {
           'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json',
         },
         body: formData
       });
 
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
 
-      if (data.status === 'success') {
+      if (res.ok && data.status === 'success') {
         alert(data.message || 'Data berhasil dihapus!');
         location.reload();
       } else {
@@ -368,7 +377,6 @@
     }
   }
 </script>
-
 
 </body>
 </html>
