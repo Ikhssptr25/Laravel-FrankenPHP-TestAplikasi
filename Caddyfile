@@ -1,0 +1,8 @@
+:8000 {
+	root * public 
+	php_server
+	
+	encode zstd gzip
+
+	file_server
+}
