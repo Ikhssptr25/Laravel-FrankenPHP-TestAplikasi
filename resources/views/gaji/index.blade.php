@@ -4,17 +4,21 @@
   <meta charset="UTF-8" />
   <title>Data Gaji Karyawan</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-b from-green-400 to-green-100 font-sans overflow-hidden">
 
 <header class="bg-white shadow-md flex justify-between items-center px-1 py-1 border-b border-gray-200">
-  <h1 class="text-2xl font-bold text-gray-800 px-12">
-    <span class="text-gray-700">Z.</span><span class="text-green-600">Corporate</span>
-  </h1>
-  <div class="flex items-center gap-4 mr-2">
-    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-110 h-14 px-10 mr-0">
-  <form action="{{ route('logout') }}" method="POST">
+    <h1 class="text-2xl font-bold text-gray-800 px-12">
+      <span class="text-gray-700">Z.</span><span class="text-green-600">Corporate</span>
+    </h1>
+
+    <div class="flex items-center gap-4 mr-2">
+      {{-- Logo: simpan file di public/assets/logo.png --}}
+      <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-14 px-10 mr-0">
+
+      {{-- Logout: sementara arahkan ke /logout (nanti bisa ganti ke route auth Laravel) --}}
+    <form action="{{ route('logout') }}" method="POST">
     @csrf
     <button type="submit"
             class="flex items-center gap-2 text-black px-4 py-2 mt-5 rounded-lg text-sm font-semibold">
@@ -25,8 +29,8 @@
         Keluar
     </button>
 </form>
-  </div>
-</header>
+    </div>
+  </header>
 
 <main class="flex-1 px-4 md:px-10 py-10">
   <div class="w-full max-w-6xl mx-auto">

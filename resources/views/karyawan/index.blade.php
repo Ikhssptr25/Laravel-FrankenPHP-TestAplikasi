@@ -4,29 +4,33 @@
   <meta charset="UTF-8">
   <title>Kelola Data Karyawan</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-b from-green-400 to-green-100 font-sans">
 
 <header class="bg-white shadow-md flex justify-between items-center px-1 py-1 border-b border-gray-200">
-  <h1 class="text-2xl font-bold text-gray-800 px-12">
-    <span class="text-gray-700">Z.</span><span class="text-green-600">Corporate</span>
-  </h1>
-  <div class="flex items-center gap-4 mr-2">
-    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="w-110 h-14 px-10 mr-0">
+    <h1 class="text-2xl font-bold text-gray-800 px-12">
+      <span class="text-gray-700">Z.</span><span class="text-green-600">Corporate</span>
+    </h1>
+
+    <div class="flex items-center gap-4 mr-2">
+      {{-- Logo: simpan file di public/assets/logo.png --}}
+      <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-14 px-10 mr-0">
+
+      {{-- Logout: sementara arahkan ke /logout (nanti bisa ganti ke route auth Laravel) --}}
     <form action="{{ route('logout') }}" method="POST">
-      @csrf
-      <button type="submit"
-              class="flex items-center gap-2 text-black px-4 py-2 mt-5 rounded-lg text-sm font-semibold">
+    @csrf
+    <button type="submit"
+            class="flex items-center gap-2 text-black px-4 py-2 mt-5 rounded-lg text-sm font-semibold">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
         </svg>
         Keluar
-      </button>
-    </form>
-  </div>
-</header>
+    </button>
+</form>
+    </div>
+  </header>
 
 <main class="flex-1 px-4 md:px-10 py-10">
   <div class="w-full max-w-6xl mx-auto">
@@ -72,7 +76,7 @@
       </div>
 
       <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-left">
+        <table class="w-full text-left karyawan-table">
           <thead>
           <tr class="bg-gray-100 text-gray-700 border-b font-bold">
             <th class="py-3 px-4 font-semibold">No</th>

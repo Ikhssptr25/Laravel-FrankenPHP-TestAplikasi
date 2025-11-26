@@ -6,7 +6,7 @@
   <title>Sistem Penggajian Karyawan</title>
 
   {{-- Tailwind CDN (simple dulu, nanti kalau mau bisa pindah ke Vite + Tailwind) --}}
-  <script src="https://cdn.tailwindcss.com"></script>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   <script src="https://unpkg.com/heroicons@2.0.13/dist/heroicons.min.js"></script>
 </head>
 

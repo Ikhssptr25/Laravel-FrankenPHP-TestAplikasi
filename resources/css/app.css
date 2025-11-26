@@ -9,3 +9,44 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+table {
+  border-collapse: separate; /* atau collapse sesuai kebutuhan */
+  border: none;
+}
+
+th, td {
+  border: none;
+}
+
+h2{
+    border: none;
+}
+
+.karyawan-table {
+    width: 100%;
+    border-collapse: collapse; /* hilangkan celah putih antar sel */
+  }
+
+  /* HEADER – abu-abu rata, tanpa garis vertikal di tengah */
+  .karyawan-table thead th {
+    background-color: #f3f4f6;     /* abu-abu seperti sekarang */
+    color: #111827;
+    font-weight: 600;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #e5e7eb;  /* hanya garis bawah */
+  }
+
+  /* BODY – garis pemisah antar baris saja */
+  .karyawan-table tbody td {
+    border-top: 1px solid #e5e7eb; /* garis horizontal halus */
+    border-left: 0;
+    border-right: 0;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .karyawan-table tbody tr:last-child td {
+    border-bottom: 0; /* opsional, biar bawahnya bersih */
+  }
