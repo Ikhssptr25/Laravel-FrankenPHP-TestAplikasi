@@ -6,7 +6,6 @@ use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AuthController;
 
-
 Route::get('/', function () {
     return view('index'); // nanti kita bikin resources/views/index.blade.php
 })->name('dashboard');
@@ -66,8 +65,8 @@ Route::delete('/gaji/{gaji}', [GajiController::class, 'destroy'])->name('gaji.de
 // Auth Routes
 // halaman login hanya bisa diakses tamu (belum login)
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'doLogin']);
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'doLogin']);
 });
 
 // logout hanya bisa diakses user yang sudah login
@@ -78,22 +77,17 @@ Route::post('/logout', [AuthController::class, 'logout'])
 // ========== HALAMAN YANG WAJIB LOGIN ==========
 
 Route::middleware('auth')->group(function () {
-
-    // dashboard utama (ganti dengan yang kamu punya)
-    Route::get('/', function () {
-        return view('dashboard'); // misal kamu punya resources/views/dashboard.blade.php
-    })->name('dashboard');
-
+    // dashboard utama 
+    Route::get('/', function () {return view('dashboard');})->name('dashboard');
     // karyawan & gaji
     Route::resource('karyawan', KaryawanController::class);
     Route::resource('gaji', GajiController::class);
 });
 
-// routes/web.php atau routes/auth.php
+// routes/web.php 
 Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
-
     return redirect('/login');
 })->name('logout');

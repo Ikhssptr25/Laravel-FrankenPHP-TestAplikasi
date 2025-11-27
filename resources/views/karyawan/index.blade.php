@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Kelola Data Karyawan</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex flex-col bg-gradient-to-b from-green-400 to-green-100 font-sans">
@@ -122,7 +123,7 @@
 </footer>
 
 {{-- Modal Tambah Data --}}
-<div id="modalTambah" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="modalTambah" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
   <div class="bg-white w-full max-w-md rounded-xl shadow-xl">
     <div class="bg-green-600 text-white text-center py-3 rounded-t-xl text-lg font-semibold shadow-md shadow-green-300">
       Tambah Data Karyawan
@@ -175,7 +176,7 @@
 </div>
 
 {{-- Modal Edit Data --}}
-<div id="modalEdit" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="modalEdit" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
   <div class="bg-white w-full max-w-md shadow-lg overflow-hidden rounded-xl">
     <div class="bg-green-600 text-white text-center py-3 text-lg font-semibold shadow-md">
       Edit Data Karyawan

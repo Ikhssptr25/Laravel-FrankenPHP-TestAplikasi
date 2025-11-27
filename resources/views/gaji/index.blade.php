@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <title>Data Gaji Karyawan</title>
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
   @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen flex flex-col bg-gradient-to-b from-green-400 to-green-100 font-sans overflow-hidden">
+<body class="min-h-screen flex flex-col bg-gradient-to-b from-green-400 to-green-100 font-sans">
 
 <header class="bg-white shadow-md flex justify-between items-center px-1 py-1 border-b border-gray-200">
     <h1 class="text-2xl font-bold text-gray-800 px-12">
@@ -73,7 +74,7 @@
       </div>
 
       <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse text-left text-sm">
+        <table class="w-full text-left text-sm gaji-table">
           <thead>
           <tr class="bg-gray-100 text-gray-700 border-b font-bold">
             <th class="py-2 px-2 w-1/6 whitespace-nowrap truncate">Nama</th>
@@ -133,7 +134,7 @@
 </footer>
 
 {{-- Modal Tambah --}}
-<div id="modalTambah" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="modalTambah" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
   <div class="bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden">
     <div class="bg-green-600 text-white text-center py-3 text-lg font-semibold">Tambah Data Gaji</div>
     <form id="formTambah" class="p-6 space-y-4">
@@ -192,7 +193,7 @@
 </div>
 
 {{-- Modal Edit --}}
-<div id="modalEdit" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="modalEdit" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
   <div class="bg-white w-full max-w-md rounded-lg shadow-lg overflow-hidden">
     <div class="bg-green-600 text-white text-center py-3 text-lg font-semibold">Edit Data Gaji</div>
     <form id="formEdit" class="p-6 space-y-4">

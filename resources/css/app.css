@@ -6,47 +6,74 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+/* ====== RESET BORDER STANDAR TABLE ====== */
 table {
-  border-collapse: separate; /* atau collapse sesuai kebutuhan */
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
   border: none;
 }
 
-th, td {
+h2 {
   border: none;
 }
 
-h2{
-    border: none;
+/* ====== TABLE UMUM (KARYAWAN & GAJI) ====== */
+.data-table,
+.karyawan-table,
+.gaji-table {
+  width: 100%;
+  border-collapse: collapse; /* hilangin celah putih antar sel */
 }
 
-.karyawan-table {
-    width: 100%;
-    border-collapse: collapse; /* hilangkan celah putih antar sel */
-  }
+/* HEADER – abu-abu, nyatu tanpa garis vertikal */
+.data-table thead th,
+.karyawan-table thead th,
+.gaji-table thead th {
+  background-color: #f3f4f6;   /* abu-abu header */
+  color: #111827;
+  font-weight: 600;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
 
-  /* HEADER – abu-abu rata, tanpa garis vertikal di tengah */
-  .karyawan-table thead th {
-    background-color: #f3f4f6;     /* abu-abu seperti sekarang */
-    color: #111827;
-    font-weight: 600;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 1px solid #e5e7eb;  /* hanya garis bawah */
-  }
+/* BODY – garis pemisah antar baris saja (horizontal) */
+.data-table tbody td,
+.karyawan-table tbody td,
+.gaji-table tbody td {
+  border-top: 1px solid #e5e7eb;   /* garis antar baris */
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  padding: 0.75rem 1rem;
+}
 
-  /* BODY – garis pemisah antar baris saja */
-  .karyawan-table tbody td {
-    border-top: 1px solid #e5e7eb; /* garis horizontal halus */
-    border-left: 0;
-    border-right: 0;
-    padding: 0.5rem 0.75rem;
-  }
+/* Hilangkan border-bottom bawaan Tailwind "border-b" di <tr> */
+.data-table tbody tr,
+.karyawan-table tbody tr,
+.gaji-table tbody tr {
+  border-bottom: 0 !important;
+}
 
-  .karyawan-table tbody tr:last-child td {
-    border-bottom: 0; /* opsional, biar bawahnya bersih */
-  }
+/* Kalau masih pengin rapih: baris pertama & terakhir tanpa garis aneh */
+.data-table tbody tr:first-child td,
+.karyawan-table tbody tr:first-child td,
+.gaji-table tbody tr:first-child td {
+  /* kalau nggak mau ada garis langsung di bawah header, boleh di-nolkan */
+  /* border-top: 0; */  /* aktifkan kalau perlu */
+}
+
+.data-table tbody tr:last-child td,
+.karyawan-table tbody tr:last-child td,
+.gaji-table tbody tr:last-child td {
+  border-bottom: 0;    /* pastikan tidak ada garis paling bawah */
+}
